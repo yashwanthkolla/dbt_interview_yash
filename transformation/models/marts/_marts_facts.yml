@@ -1,0 +1,68 @@
+version: 2
+
+models:
+  - name: fct_opportunity
+    description: |
+      Fact table for Opportunity transactions. 
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - opportunity_id
+            - account_id
+    columns:
+      - name: opportunity_key
+        description: Surrogate key for the opportunity
+        tests:
+          - unique
+          - not_null
+      - name: opportunity_id
+        description: Natural key - Salesforce Opportunity ID
+        tests:
+          - unique
+          - not_null
+      - name: account_id
+        description: Foreign key to the account table
+        tests:
+          - not_null
+      - name: account_key
+        description: Surrogate key reference to dim_account
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_account')
+                field: account_key
+      - name: owner_user_id
+        description: Foreign key to the owner user
+        tests:
+          - not_null
+      - name: owner_user_key
+        description: Surrogate key reference to dim_user
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_user')
+                field: user_key
+      - name: stage_name
+        description: Current stage in sales process
+        tests:
+          - not_null
+      - name: amount
+        description: Opportunity value
+        tests:
+          - not_null
+      - name: probability
+        description: Probability of winning (0-100)
+      - name: is_closed
+        description: Whether closed
+      - name: is_won
+        description: Whether won
+      - name: closedate
+        description: Scheduled or actual close date
+      - name: createddate
+        description: Creation date
+        tests:
+          - not_null
+      - name: lastmodifieddate
+        description: last modified date
+      - name: loaddts
+        description: Timestamp at which the record is loaded into data warehouse

@@ -1,0 +1,124 @@
+version: 2
+
+models:
+  - name: dim_account
+    description: |
+      Dimension table for Account entities.
+    columns:
+      - name: account_key
+        description: Surrogate key for the account (generated from account_id)
+        tests:
+          - unique
+          - not_null
+      - name: account_id
+        description: Natural key - Salesforce Account ID
+        tests:
+          - unique
+          - not_null
+      - name: account_name
+        description: Name of the account
+        tests:
+          - not_null
+      - name: account_type
+        description: Type of account
+      - name: industry
+        description: Industry classification for the account
+      - name: annualrevenue
+        description: Annual revenue of the account
+      - name: account_status
+        description: Status indicator (Active/Deleted)
+        tests:
+          - accepted_values:
+              values: ['Active', 'Deleted']
+      - name: account_owner_username
+        description: Username of the account owner
+      - name: account_owner_name
+        description: Full name of the account owner
+      - name: account_created_date
+        description: Date the account was created
+        tests:
+          - not_null
+      - name: loaddts
+        description: Timestamp when the record was loaded into the data warehouse
+
+  - name: dim_product
+    description: |
+      Dimension table for Product entities. 
+    columns:
+      - name: product_key
+        description: Surrogate key for the product (generated from product_id)
+        tests:
+          - unique
+          - not_null
+      - name: product_id
+        description: Natural key - Salesforce Product ID
+        tests:
+          - unique
+          - not_null
+      - name: product_name
+        description: Name of the product
+        tests:
+          - not_null
+      - name: product_family
+        description: Product family classification
+      - name: product_type
+        description: Type of product
+      - name: product_status
+        description: Status indicator (Active/Inactive)
+        tests:
+          - accepted_values:
+              values: ['Active', 'Inactive']
+      - name: product_created_date
+        description: Date the product was created
+        tests:
+          - not_null
+      - name: loaddts
+        description: Timestamp when the record was loaded into the data warehouse
+
+
+  - name: dim_user
+    description: |
+      Dimension table for User entities. 
+    columns:
+      - name: user_key
+        description: Surrogate key for the user (generated from user_id)
+        tests:
+          - unique
+          - not_null
+      - name: user_id
+        description: Natural key - Salesforce User ID
+        tests:
+          - unique
+          - not_null
+      - name: user_role_id
+        description: Foreign key reference to the user_role table
+      - name: username
+        description: Unique username in Salesforce
+        tests:
+          - not_null
+      - name: user_full_name
+        description: Full name of the user (firstname + lastname)
+      - name: email
+        description: Email address of the user
+        tests:
+          - not_null
+      - name: title
+        description: Job title of the user
+      - name: department
+        description: Department of the user
+      - name: user_type
+        description: Type of user account
+      - name: user_status
+        description: Status indicator
+        tests:
+          - accepted_values:
+              values: ['Active', 'Inactive']
+      - name: user_role_name
+        description: user role name
+      - name: user_created_date
+        description: Date the user was created
+        tests:
+          - not_null
+      - name: loaddts
+        description: Timestamp when the record was loaded into the data warehouse
+

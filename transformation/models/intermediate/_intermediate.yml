@@ -1,0 +1,44 @@
+version: 2
+
+models:
+  - name: int_opportunity_with_account_user
+    description: |
+      Intermediate model that enriches opportunity data with account and user information.
+    columns:
+      - name: opportunity_id
+        description: Unique identifier for the opportunity
+        tests:
+          - unique
+          - not_null
+      - name: account_id
+        description: Foreign key reference to the account
+        tests:
+          - not_null
+      - name: owner_id
+        description: Foreign key reference to the owner user
+        tests:
+          - not_null
+      - name: opportunity_name
+        description: opportunity name
+        tests:
+          - not_null
+      - name: stage_name
+        description: stage name
+        tests:
+          - not_null
+      - name: amount
+        description: Opportunity amount 
+        tests:
+          - not_null
+      - name: probability
+        description: Probability
+      - name: is_closed
+        description: if opportunity is closed or not
+      - name: is_won
+        description: If opportunity was won or not
+      - name: account_name
+        description: associated account Name
+      - name: industry
+        description: Industry
+      - name: createddate
+        description: Date the opportunity was createdoppurtunity created date
