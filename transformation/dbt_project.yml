@@ -19,6 +19,11 @@ clean-targets:
   - "target"
   - "dbt_packages"
   - "logs"
+seeds:
+  dbt_interview:
+    exempt_oppurtunities:
+      +column_types:
+        oppurtunity_id: varchar
 
 models:
   dbt_interview:
