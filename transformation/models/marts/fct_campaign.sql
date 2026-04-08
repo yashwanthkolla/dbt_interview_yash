@@ -1,7 +1,7 @@
 {{ config(
     materialized='incremental',
     unique_key='campaign_id',
-    incremental_strategy = 'insert_overwrite',
+    incremental_strategy = 'delete+insert',
     tags=['facts', 'campaign']
 ) }}
 
