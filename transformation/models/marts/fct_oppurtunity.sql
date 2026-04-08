@@ -17,7 +17,7 @@ user_key as (
     select user_id, user_key from {{ ref('dim_user') }}
 ),
 
-fct_opportunity as (
+fct_opportunity_base as (
     select
         {{ dbt_utils.generate_surrogate_key(['opportunity_id']) }} as opportunity_key,
         opportunity_id,
@@ -48,6 +48,13 @@ fct_opportunity as (
     from opportunity opp
     left join account_key ak on opp.account_id = ak.account_id
     left join user_key uk on opp.owner_id = uk.user_id
+),
+
+fct_opportunity as (
+    select
+        *,
+        sum(amount) over (partition by account_id order by createddate asc rows between unbounded preceding and current row) as cumulative_amount_per_account
+    from fct_opportunity_base
 )
 
 select * from fct_opportunity

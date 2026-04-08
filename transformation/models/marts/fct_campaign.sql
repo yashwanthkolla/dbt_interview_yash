@@ -1,8 +1,8 @@
 {{ config(
-    materialized='Incremental',
+    materialized='incremental',
     unique_key='campaign_id',
     incremental_strategy = 'insert_overwrite',
-    tags=['facts', 'opportunity']
+    tags=['facts', 'campaign']
 ) }}
 
 with campaign_snap as (
